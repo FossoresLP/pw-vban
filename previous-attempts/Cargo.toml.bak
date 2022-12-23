@@ -1,3 +1,0 @@
-[workspace]
-members = ["libvban", "receiver"]
-exclude = ["arr_macro"]
