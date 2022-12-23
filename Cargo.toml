@@ -1,0 +1,9 @@
+[workspace]
+members = ["arr_macro", "transmitter", "receiver", "generic_module"]
+default-members = ["transmitter", "receiver"]
+
+[patch.'https://gitlab.freedesktop.org/pipewire/pipewire-rs']
+pipewire-sys = { path = "./pipewire-rs/pipewire-sys" }
+pipewire = { path = "./pipewire-rs/pipewire" }
+libspa-sys = { path = "./pipewire-rs/libspa-sys" }
+libspa = { path = "./pipewire-rs/libspa" }

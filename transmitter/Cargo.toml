@@ -1,0 +1,14 @@
+[package]
+name = "transmitter"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+pipewire-sys = { git = "https://gitlab.freedesktop.org/pipewire/pipewire-rs" }
+pipewire = { git = "https://gitlab.freedesktop.org/pipewire/pipewire-rs" }
+libspa-sys = { git = "https://gitlab.freedesktop.org/pipewire/pipewire-rs" }
+libspa = { git = "https://gitlab.freedesktop.org/pipewire/pipewire-rs" }
+arr_macro = { version = "0.1.0", path = "../arr_macro" }

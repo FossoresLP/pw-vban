@@ -1,0 +1,23 @@
+From fac3cd63d829623c935b80af33152d6a634ace85 Mon Sep 17 00:00:00 2001
+From: Pascal Vorwerk <info@fossores.de>
+Date: Fri, 28 Jan 2022 19:15:04 +0100
+Subject: [PATCH] pw: core: make core.from_ptr public
+
+Signed-off-by: Pascal Vorwerk <info@fossores.de>
+---
+ pipewire/src/core_.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pipewire/src/core_.rs b/pipewire/src/core_.rs
+index 10ab126..84168df 100644
+--- pipewire/src/core_.rs
++++ pipewire/src/core_.rs
+@@ -24,7 +24,7 @@ pub struct Core {
+ }
+
+ impl Core {
+-    pub(crate) fn from_ptr(ptr: ptr::NonNull<pw_sys::pw_core>) -> Self {
++    pub fn from_ptr(ptr: ptr::NonNull<pw_sys::pw_core>) -> Self {
+         let inner = CoreInner::from_ptr(ptr);
+         Self {
+             inner: Rc::new(inner),
