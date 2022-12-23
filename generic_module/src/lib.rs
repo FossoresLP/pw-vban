@@ -11,9 +11,6 @@ mod audioinfo;
 use audioinfo::AudioInfo;
 use audioinfo::Format;
 
-mod vban;
-use vban::Conn;
-
 use pipewire::prelude::ReadableDict;
 use pipewire::prelude::WritableDict;
 
@@ -119,7 +116,7 @@ pub unsafe extern "C" fn pipewire__module_init(
 		}
 	};
 
-	let mut stream = match pw::stream::Stream::<Conn>::new(&core, "vban sink", props) {
+	let mut stream = match pw::stream::Stream::<u8>::new(&core, "vban sink", props) {
 		Err(_) => {
 			println!("Failed to create stream");
 			return -1;
@@ -144,7 +141,7 @@ pub unsafe extern "C" fn pipewire__module_init(
 	);
 
 	let listener = match stream
-		.add_local_listener_with_user_data(conn)
+		.add_local_listener_with_user_data(0)
 		.state_changed(state_changed)
 		.process(process)
 		.register()
@@ -182,17 +179,19 @@ fn state_changed(old: pw::stream::StreamState, new: pw::stream::StreamState) {
 	println!("Stream state changed from {:?} to {:?}", old, new);
 }
 
-fn process(s: &pw::stream::Stream<Conn>, conn: &mut Conn) {
+fn process(s: &pw::stream::Stream<u8>, user_data: &mut u8) {
 	let mut buf = s.dequeue_buffer().expect("Failed to dequeue buffer");
 	for d in buf.datas_mut() {
 		let chunk = d.chunk();
 		let offset = chunk.offset();
 		let size = chunk.size();
-		let _stride = chunk.stride();
+		let stride = chunk.stride();
 		let data = d.data().expect("Failed to get data");
 
-		conn.send(data, offset, size)
-			.expect("Unhandled IO error when sending packet");
+		println!(
+			"Chunk[Offset: {}, Size: {}, Stride: {}, Data: {} bytes]",
+			offset, size, stride, data
+		);
 	}
 }
 
