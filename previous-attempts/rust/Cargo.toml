@@ -1,0 +1,16 @@
+[package]
+name = "vban"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+name = "vban"
+crate-type = ["staticlib", "cdylib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+pipewire = "0.4.1"
+pipewire-sys = "0.4.1"
+libspa = "0.4.1"
+libspa-sys = "0.4.1"
